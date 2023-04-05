@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<form>
+    <main>
+        <form>
+        <!--Heading-->
+        <h1>User Registration Form</h1>
+        <!--Name Label-->
+        <label for="name">Name: </label>
+        <input type="text" id="name">
+        <br><br>
+        <!--EMail Label-->
+        <label for="email">EMail: </label>
+        <input type="email" id="email">
+        <br><br>
+        <!--Password Label-->
+        <label for="password">Password: </label>
+        <input type="password" id="password" max="10" min="7" required>
+        <br><br>
+        <!--Confirm Password Label-->
+        <label for="confirm-pwd">Confirm Password: </label>
+        <input type="password" id="confirm-pwd" required>
+        <br><br>
+        <!--Date of Birth Label-->
+        <label for="date-of-birth">Date Of Birth: </label>
+        <input type="date" id="date-of-birth">
+        <br><br>
+        <!--Gender Label-->
+        <label for="gender">Gender: </label>
+        <br>
+        <input type="radio" id="gender" value="Male" name="gender"> Male
+        <br>
+        <input type="radio" id="gender" value="Female" name="gender"> Female
+        <br>
+        <input type="radio" id="gender" value="Others" name="gender"> Others
+        <br><br>
+        <!--Interests Label-->
+        <label for="interests">Interests: </label>
+        <br>
+        <input type="checkbox"> Music
+        <br>
+        <input type="checkbox"> Sports
+        <br>
+        <input type="checkbox"> Reading Books
+        <br><br>
+        <!--Submit Button-->
+        <input type="submit" name="submit" value="Submit">
+        <!--Reset Button-->
+        <input type="reset" name="reset" value="Reset">
+        </form>
+    </main>
+</body>
+</html>
