@@ -1,0 +1,268 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  ul {
+    padding-left: 1.5rem;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    color: #333;
+    background-color: snow;
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+  
+  .item {
+    padding: 8px;
+    background-color: white;
+    border: 4px solid tomato;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+  }
+  
+  .height-50 {
+    height: 50vh;
+  }
+  
+  /* Task 1 */
+  
+  .task-1.container {
+        display: grid;
+        height: 100vh;
+        grid-template-rows: auto 1fr auto;
+      }
+  
+  /* Task 2 */
+  .task-2.container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 12px;
+        align-items: center;
+      }
+  
+  .task-2 .item-1 {
+        grid-column-start: 2;
+        grid-column-end: span 4;
+      }
+  
+  .task-2 .item-2 {
+        grid-column: 6 / span 6;
+      }
+      
+  
+  /* Task 3.1 */
+  
+  .task-3-1.container {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: auto auto 1fr auto auto auto;
+    gap: 24px;
+  }
+  
+  @media (min-width: 720px) {
+ 
+     /* The header section takes 12 columns */
+  .task-3-1 .header {
+      grid-column: 1 / span 12;
+    }
+  
+    /* The navigation section also takes 12 columns */
+  .task-3-1 .navigation {
+      grid-column: 1 / span 12;
+    }
+  
+    /* The main section takes 10 columns start from column 3 */
+  .task-3-1 .main {
+      grid-column: 3 / span 10;
+    }
+  
+    /* The sidebar takes 2 columns start from column 1 */
+  .task-3-1 .sidebar {
+      grid-column: 1 / span 2;
+      grid-row: 3;
+    }
+  
+    /* The ads section takes 2 columns start from column 1 */
+  .task-3-1 .ads {
+      grid-column: 1 / span 2;
+    }
+  
+    /* The footer section takes 10 columns start from column 3 */
+  .task-3-1 .footer {
+      grid-column: 3 / span 10;
+    }
+  }
+  
+  @media (min-width: 1020px) {
+
+     /* The navigation takes 8 columns starting from column 3 */
+    .task-3-1 .navigation {
+      grid-column: 3 / span 8;
+    }
+  
+    /* The main section takes 8 columns starting from column 3 */
+    .task-3-1 .main {
+      grid-column: 3 / span 8;
+    }
+  
+    /* The sidebar starts from row 2 and ends at row 4 */
+    .task-3-1 .sidebar {
+      grid-row: 2 / 4
+    }
+  
+    /* The ads section takes 2 columns starting from column 11
+     it also takes 2 rows starting from row 2 and ending at row 4*/
+    .task-3-1 .ads {
+      grid-column: 11 / span 2;
+      grid-row: 2 / 4;
+    }
+  
+    /* The footer section takes 12 columns start from column 1 */
+    .task-3-1 .footer {
+      grid-column: 1 / span 12;
+    }
+  }
+  
+  /* Task 3.2 */
+  
+  .task-3-2 .header {
+    grid-area: header;
+  }
+  
+  .task-3-2 .navigation {
+    grid-area: nav;
+  }
+  
+  .task-3-2 .ads {
+    grid-area: ads;
+  }
+  
+  .task-3-2 .sidebar {
+    grid-area: sidebar;
+  }
+  
+  .task-3-2 .main {
+    grid-area: main;
+  }
+  
+  .task-3-2 .footer {
+    grid-area: footer;
+  }
+  .task-3-2 .header {
+    grid-area: header;
+  }
+  
+  .task-3-2 .navigation {
+    grid-area: nav;
+  }
+  
+  .task-3-2 .ads {
+    grid-area: ads;
+  }
+  
+  .task-3-2 .sidebar {
+    grid-area: sidebar;
+  }
+  
+  .task-3-2 .main {
+    grid-area: main;
+  }
+  
+  .task-3-2 .footer {
+    grid-area: footer;
+  }
+  .task-3-2.container {
+    display: grid;
+    height: 100vh;
+    gap: 24px;
+  
+    /* Creating 6 rows and 3rd row expands as much as it can   */
+    grid-template-rows: auto auto 1fr auto auto auto;
+  
+    /* Defining the template */
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "sidebar"
+      "ads"
+      "footer";
+  }
+  /* Mobile */
+  @media (min-width: 720px) {
+    .task-3-2.container {
+      /* Creating 4 rows and the 3rd row expands as much as it can */
+      grid-template-rows: auto auto 1fr auto;
+        
+      /* Defining the template (3 columns) */
+      grid-template-areas:
+        "header header header"
+        "nav nav nav "
+        "sidebar main main"
+        "ads footer footer";
+    }
+  }
+  /* Desktop */
+  @media (min-width: 1020px) {
+    .task-3-2.container {
+      /* Creating 4 rows and the 3rd row expands as much as it can */
+      grid-template-rows: auto auto 1fr auto;
+        
+      /* Defining the template (4 columns) */
+      grid-template-areas:
+        "header header header header"
+        "sidebar nav nav ads"
+        "sidebar main main ads"
+        "footer footer footer footer";
+    }
+  }
+  
+  /* Task 4 Responsive Layout without Media Query*/
+  
+  .task-4.container {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+   .task-4 .item-5 {
+    grid-column-end: span 2;
+  } 
+  /* Task 5 */
+  .task-5.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
+  
+  /* First item starts from column 1 and expand 3 columns
+     and from row 1 and expand 3 columns */
+  .task-5 .item-1 {
+      grid-row: 1 / span 3;
+      grid-column: 1 / span 3;
+  }
+  
+  /* Second item starts from column 4 and expand 3 columns
+     and from row 4 and expand 3 columns */
+  .task-5 .item-2 {
+      grid-row: 4 / span 3;
+      grid-column: 4 / span 3;
+  }
+  
+  /* First item starts from column 7 and expand 3 columns
+     and from row 7 and expand 3 columns*/
+  .task-5 .item-3 {
+      grid-row: 7 / span 3;
+      grid-column: 7 / span 3;
+  }
+  
+  /* First item starts from column 10 and expand 3 columns
+     and from row 10 and expand 3 columns */
+  .task-5 .item-4 {
+      grid-row: 10 / span 3;
+      grid-column: 10 / span 3;
+  }
