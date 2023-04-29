@@ -18,7 +18,6 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    /* width: 50rem; */
     justify-content: center;
     text-align: center;
     margin: 20px auto;
@@ -71,17 +70,32 @@ button:hover{
     background: url('Assets/mole\ image.png');
     background-size: cover;
 }
-
-@media screen and (max-width:780px){
+/* Media Query for Mobile (Responsive) */
+@media screen and (min-width:320px) and (max-width:780px){
     .container{
         display: flex;
         background-color: brown;
     };
 }
+/* Media query for Tablets (Responsive) */
+@media screen and (min-width:780px) and (max-width:1080px){
+    .container{
+        display: flex;
+        background-color: rgb(120, 130, 49);
+    }
+    .square{
+        box-shadow: 2px 4px 6px rgb(236, 112, 4);
+    };
+}
+/* Media Query for Desktop (Responsive) */
 @media screen and  (min-width:1080px){
     .main{
         display: flex;
         justify-content: space-between;
         background-color: aquamarine;
     }
+    .square{
+        box-shadow: 1px 4px 7px rgb(255, 111, 214);
+    };
 }
+
