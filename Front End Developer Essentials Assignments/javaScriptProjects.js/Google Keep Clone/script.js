@@ -1,68 +1,187 @@
-//complete my deleteHistory Function?
-
 const addTitle = document.getElementById('addTitle');
 const addText = document.getElementById('addText');
-const addNoteButton = document.getElementById('addNotes');
+const addNoteButton = document.getElementById('addNote');
 const notesDiv = document.getElementById('notes');
+const deleteNoteButton = document.getElementById('deleteNote');
+const archiveNoteButton = document.getElementById('archiveNote');
+const editNoteButton = document.getElementById('editNote');
+const clearDeleteHistoryButton = document.getElementById('clearDeleteHistory');
+const clearArchiveHistoryButton = document.getElementById('clearArchiveHistory');
+const deleteNoteHistory = document.getElementById('deleteNoteHistory');
+const archiveNoteHistory = document.getElementById('archiveNoteHistory');
+const title = document.getElementById('title');
+const text = document.getElementById('text');
 
+let notes = [];
+let deletedNotesHistory = [];
+let archivedNotesHistory = [];
 
-//When Refreshing the web Page ,the entire previous added data is shown on the Web Page
-showNotes();
+// Load notes and history from local storage using getItem() method on page load
+  window.addEventListener('DOMContentLoaded', () => {
+  const storedNotes = localStorage.getItem('notes');
+  const storedDeletedNotesHistory = localStorage.getItem('deletedNotesHistory');
+  const storedArchivedNotesHistory = localStorage.getItem('archivedNotesHistory');
+  
+  if (storedNotes) {
+    notes = JSON.parse(storedNotes);
+    renderNotes();
+  }
+  
+  if (storedDeletedNotesHistory) {
+    deletedNotesHistory = JSON.parse(storedDeletedNotesHistory);
+    showDeletedNotesHistory();
+  }
+  
+  if (storedArchivedNotesHistory) {
+    archivedNotesHistory = JSON.parse(storedArchivedNotesHistory);
+    showArchivedNotesHistory();
+  }
+});
 
-//Implementing Add Notes Function and Storing the Data using Local Storage
-function addNotes(){
-    let notes = localStorage.getItem('notes');
-    if(notes === null){
-        notes = [];
-    }else{
-        notes = JSON.parse(notes);
-    }
-
-    if(addText.value == ''){
-        alert('Add your note');
-        return;
-    }
-    
-    const noteObj = {
-        title: addTitle.value,
-        text: addText.value,
-    }
+/*addNote feature for adding notes with calling renderNote() and saveNotesToLocalStorage() 
+callback functions*/
+function addNote() {
+  const titleValue = addTitle.value;
+  const textValue = addText.value;
+  if (titleValue.trim() !== '' && textValue.trim() !== '') {
+    const note = {
+      title: titleValue,
+      text: textValue,
+      id: notes.length + 1
+    };
+    notes.push(note);
     addTitle.value = '';
     addText.value = '';
-    notes.push(noteObj);
-    localStorage.setItem('notes', JSON.stringify(notes));
-    showNotes();
+    renderNotes();
+    saveNotesToLocalStorage();
+  } else {
+    alert('Please enter a title and text');
+  }
 }
 
-//Implementing Show Notes Function and Showing the Data using Local Storage
-function showNotes(){
-    let notesHTML = '';
-    let notes = localStorage.getItem('notes');
-    if(notes === null){
-        return;
-    }else{
-        notes = JSON.parse(notes);
-    }
-    for(let i=0; i<notes.length; i++){
-        notesHTML += `<div class="note">
-                         <button class="deleteNote" id=${i} onclick="deleteNote(${i})">Delete</button>
-                         <span class="title">${notes[i].title === "" ? 'Note' : notes[i].title}</span>
-                         <div class="text">${notes[i].text}</div>
-                      </div>`
-    }
-    notesDiv.innerHTML = notesHTML;
+// renderNotes feature for rendering the add notes data with calling showNote() callback function
+function renderNotes() {
+  notesDiv.innerHTML = '';
+  for (const note of notes) {
+    const noteElement = document.createElement('div');
+    noteElement.innerHTML = `<h3>${note.title}</h3><p>${note.text}</p>`;
+    noteElement.dataset.id = note.id;
+    noteElement.addEventListener('click', showNote);
+    notesDiv.appendChild(noteElement);
+  }
 }
 
-//Implementing Delete Notes and Deleting the Data using Local Storage
-function deleteNote(ind){
-    let notes = localStorage.getItem('notes');
-    if(notes === null){
-        return;
-    }else{
-        notes = JSON.parse(notes);
-    }
-    notes.splice(ind, 1);
-    localStorage.setItem('notes', JSON.stringify(notes));
-    showNotes();
+// showNote feature for showing the added notes data on the web page
+function showNote() {
+  const id = this.dataset.id;
+  const note = notes.find(note => note.id == id);
+  title.textContent = note.title;
+  text.textContent = note.text;
 }
-addNoteButton.addEventListener('click', addNotes);
+
+/* deleteNote feature for deleting the added particular notes data with 
+calling renderNote() and saveNotesToLocalStorage() callback functions */
+function deleteNote() {
+  const id = notesDiv.querySelector('[data-id]').dataset.id;
+  const noteIndex = notes.findIndex(note => note.id == id);
+  if (noteIndex !== -1) {
+    const note = notes.splice(noteIndex, 1)[0];
+    renderNotes();
+    saveNotesToLocalStorage();
+    deletedNotesHistory.push(`${note.title} deleted`);
+    saveDeletedNotesHistoryToLocalStorage();
+    showDeletedNotesHistory();
+  }
+}
+
+/* archiveNote feature for retrieving the added and deleted notes data with calling renderNotes(),
+ saveArchivedNotesHistoryToLocalStorage(), showArchivedNotesHistory() and 
+ saveNotesToLocalStorage() callback functions */
+function archiveNote() {
+  const id = notesDiv.querySelector('[data-id]').dataset.id;
+  const noteIndex = notes.findIndex(note => note.id == id);
+  if (noteIndex !== -1) {
+    const note = notes.splice(noteIndex, 1)[0];
+    renderNotes();
+    saveNotesToLocalStorage();
+    archivedNotesHistory.push(`${note.title} archived`);
+    saveArchivedNotesHistoryToLocalStorage();
+    showArchivedNotesHistory();
+  }
+}
+
+// editNote feature for editing particular addNote() notes data with calling deleteNote() callback function
+function editNote() {
+  const id = notesDiv.querySelector('[data-id]').dataset.id;
+  const note = notes.find(note => note.id == id);
+  addTitle.value = note.title;
+  addText.value = note.text;
+  deleteNote();
+  }
+  
+  /*showDeletedNotesHistory feature for showing deleted notes history data 
+  even after refreshing the web page */
+  function showDeletedNotesHistory() {
+  deleteNoteHistory.innerHTML = '';
+  for (const noteHistory of deletedNotesHistory) {
+  const historyElement = document.createElement('p');
+  historyElement.textContent = noteHistory;
+  deleteNoteHistory.appendChild(historyElement);
+  }
+  }
+ 
+  /*showArchivedNotesHistory feature for showing archived notes history data 
+  even after refreshing the web page*/
+  function showArchivedNotesHistory() {
+  archiveNoteHistory.innerHTML = '';
+  for (const noteHistory of archivedNotesHistory) {
+  const historyElement = document.createElement('p');
+  historyElement.textContent = noteHistory;
+  archiveNoteHistory.appendChild(historyElement);
+  }
+  }
+  
+  /*saveNotesToLocalStorage feature for saving notes data to local storage */
+  function deleteHistory() {
+  deletedNotesHistory = [];
+  saveDeletedNotesHistoryToLocalStorage();
+  showDeletedNotesHistory();
+  }
+  
+  /* archiveHistory feature for retrieving the previous archived notes data with calling
+   saveArchivedNotesHistoryToLocalStorage() and showArchivedNotesHistory() callback functions*/
+  function archiveHistory() {
+  archivedNotesHistory = [];
+  saveArchivedNotesHistoryToLocalStorage();
+  showArchivedNotesHistory();
+  }
+  
+  /*saveNotesToLocalStorage feature for saving notes data to local storage */
+  function saveNotesToLocalStorage() {
+  localStorage.setItem('notes', JSON.stringify(notes));
+  }
+  
+  /*saveDeletedNotesHistoryToLocalStorage feature for saving deleted notes data to local storage */
+  function saveDeletedNotesHistoryToLocalStorage() {
+  localStorage.setItem('deletedNotesHistory', JSON.stringify(deletedNotesHistory));
+  }
+  
+  /*saveArchivedNotesHistoryToLocalStorage feature for saving archived notes data to local storage */
+  function saveArchivedNotesHistoryToLocalStorage() {
+  localStorage.setItem('archivedNotesHistory', JSON.stringify(archivedNotesHistory));
+  }
+  
+  /* Actions performed on above all particular features using Event Listeners */
+  addNoteButton.addEventListener('click', addNote);
+  deleteNoteButton.addEventListener('click', deleteNote);
+  archiveNoteButton.addEventListener('click', archiveNote);
+  editNoteButton.addEventListener('click', editNote);
+  clearDeleteHistoryButton.addEventListener('click', deleteHistory);
+  clearArchiveHistoryButton.addEventListener('click', archiveHistory);
+  
+  /* calling relative functions based upon the above features */
+  renderNotes();
+  showDeletedNotesHistory();
+  showArchivedNotesHistory();
+  
+  

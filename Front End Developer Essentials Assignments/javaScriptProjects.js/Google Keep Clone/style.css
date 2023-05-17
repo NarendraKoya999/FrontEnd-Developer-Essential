@@ -1,48 +1,105 @@
-*{
-    padding: 0;
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    box-sizing: border-box;
-}
-#container{
-    width: 100vw;
-    min-height: 100vh;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: beige;
-}
-#text-area{
-    border: 2px solid grey;
-    padding: 20px;
-}
-input,textarea{
+  }
+  
+  #input-box {
+    margin-bottom: 20px;
+  }
+  
+  #addTitle {
     width: 100%;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    margin-top: 8px;
-    color: rgb(70, 67, 67);
-}
-button{
-    text-align: center;
-    background-color: transparent;
-    padding: 8px 12px;
-    border: 2px solid grey;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  #addText {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
     cursor: pointer;
-}
-#notes{
-    padding: 23px;
-    display: flex;
-    flex-wrap: wrap;
-}
-.note{
-    width: 300px;
-    color: rgb(70, 67, 67);
-    overflow-wrap: break-word;
-    margin: 12px;
-    padding: 12px;
-    border: 2px solid grey;
-    background: transparent;
-}
-
-.deleteNote{
-    float: right;
-}
+  }
+  
+  #notes div {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  #notes div:hover {
+    background-color: #f9f9f9;
+  }
+  
+  #history {
+    margin-top: 20px;
+  }
+  
+  #history h2 {
+    margin-bottom: 10px;
+  }
+  
+  #history div {
+    margin-bottom: 20px;
+  }
+  
+  #deleteNoteHistory p,
+  #archiveNoteHistory p {
+    margin: 0;
+    padding: 5px;
+    background-color: #f2f2f2;
+  }
+  
+  #clearDeleteHistory,
+  #clearArchiveHistory {
+    background-color: #f44336;
+    margin-bottom: 10px;
+  }
+  
+  #clearDeleteHistory:hover,
+  #clearArchiveHistory:hover {
+    background-color: #d32f2f;
+  }
+  
+  #deleteHistory,
+  #archiveHistory {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+  }
+  
+  #deleteHistory h3,
+  #archiveHistory h3 {
+    margin-bottom: 10px;
+  }
+  
+  #deleteHistory button,
+  #archiveHistory button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  #deleteHistory button:hover,
+  #archiveHistory button:hover {
+    background-color: #45a049;
+  }
+  
